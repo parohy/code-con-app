@@ -21,6 +21,7 @@ class LoginActivity: VBActivity<ActivityLoginBinding>(ActivityLoginBinding::infl
                 when (state) {
                     is NetworkResult.Failure -> loginForm.onError(state.ex.message)
                     is NetworkResult.Success -> startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    else                     -> loginForm.onError(null)
                 }
 
                 loading.isVisible = state is NetworkResult.Loading
