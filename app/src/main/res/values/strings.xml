@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CodeCon</string>
+
+    <string name="login_headline">Hello CodeCon!</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_submit">Sign in</string>
+    <string name="home_headline">God of Code</string>
 </resources>
