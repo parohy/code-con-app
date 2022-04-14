@@ -1,4 +1,4 @@
-package sk.parohy.codecon
+package sk.parohy.codecon.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
