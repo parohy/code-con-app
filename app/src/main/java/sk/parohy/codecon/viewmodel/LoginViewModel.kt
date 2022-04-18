@@ -1,5 +1,6 @@
 package sk.parohy.codecon.viewmodel
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
@@ -10,14 +11,14 @@ import sk.parohy.codecon.api.Api
 import sk.parohy.codecon.api.NetworkResult
 
 class LoginViewModel: ViewModel() {
-    val state: Flow<NetworkResult<Unit>?> = Api.state.map { it.loginState }
+    val state: Flow<NetworkResult<String>?> = Api.state.map { it.loginState }
 
     private var loginJob: Job? = null
 
-    fun login(username: String, password: String) {
+    fun login(username: String, password: String, pref: SharedPreferences) {
         if (loginJob?.isActive != true) {
             loginJob = viewModelScope.launch {
-                Api.signIn(username, password)
+                Api.signIn(username, password, pref)
             }
         }
     }

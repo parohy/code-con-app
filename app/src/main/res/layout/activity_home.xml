@@ -5,14 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/t_headline"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:text="@string/home_headline"
+        android:gravity="center_vertical"
         android:padding="16dp"
-        android:textSize="32sp" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/t_headline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:text="@string/home_headline"
+            android:layout_weight="1"
+            android:textSize="32sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/b_signout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/logout"
+            android:textAllCaps="false"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:alpha="0.1f"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
@@ -22,6 +43,8 @@
             android:id="@+id/rv_gods"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="12dp"
             tools:listitem="@layout/item_god" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

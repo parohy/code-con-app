@@ -1,5 +1,6 @@
 package sk.parohy.codecon.viewmodel
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
@@ -20,5 +21,9 @@ class HomeViewModel: ViewModel() {
             fetchJob = viewModelScope.launch {
                 Api.fetchGods()
             }
+    }
+
+    fun logOut(pref: SharedPreferences) {
+        Api.signOut(pref)
     }
 }
