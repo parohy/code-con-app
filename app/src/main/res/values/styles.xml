@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="H1" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/text_dark_light</item>
+    </style>
+
+    <style name="H2" parent="H1">
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="Sub" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_light_light</item>
+    </style>
+
+    <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/codecon_dark_light</item>
+    </style>
+
+    <style name="Body" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/text_dark_light</item>
+    </style>
+</resources>
