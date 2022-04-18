@@ -29,6 +29,7 @@ import sk.parohy.codecon.R
 import sk.parohy.codecon.api.NetworkResult
 import sk.parohy.codecon.api.isLoading
 import sk.parohy.codecon.api.model.God
+import sk.parohy.codecon.theme.CodeConTheme
 import sk.parohy.codecon.viewmodel.HomeViewModel
 
 class HomeActivity: AppCompatActivity() {
@@ -38,13 +39,15 @@ class HomeActivity: AppCompatActivity() {
         val model by viewModels<HomeViewModel>()
 
         setContent {
-            HomeScreen(
-                model = model,
-                onLogout = {
-                    model.logOut(PreferenceManager.getDefaultSharedPreferences(this))
-                    startLoginActivity()
-                }
-            )
+            CodeConTheme {
+                HomeScreen(
+                    model = model,
+                    onLogout = {
+                        model.logOut(PreferenceManager.getDefaultSharedPreferences(this))
+                        startLoginActivity()
+                    }
+                )
+            }
         }
     }
 }
@@ -126,28 +129,60 @@ private fun GodCard(god: God) {
 
 @Preview
 @Composable
-private fun GodCardPreview() {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        GodCard(
-            god = God(
-                "Tutut",
-                "Funny joker",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+private fun GodCardLightPreview() {
+    CodeConTheme(false) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            GodCard(
+                god = God(
+                    "Tutut",
+                    "Funny joker",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                )
             )
-        )
-        GodCard(
-            god = God(
-                "Tutut",
-                "Funny joker",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            GodCard(
+                god = God(
+                    "Tutut",
+                    "Funny joker",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                )
             )
-        )
-        GodCard(
-            god = God(
-                "Tutut",
-                "Funny joker",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            GodCard(
+                god = God(
+                    "Tutut",
+                    "Funny joker",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                )
             )
-        )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun GodCardDarkPreview() {
+    CodeConTheme(true) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            GodCard(
+                god = God(
+                    "Tutut",
+                    "Funny joker",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                )
+            )
+            GodCard(
+                god = God(
+                    "Tutut",
+                    "Funny joker",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                )
+            )
+            GodCard(
+                god = God(
+                    "Tutut",
+                    "Funny joker",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                )
+            )
+        }
     }
 }
