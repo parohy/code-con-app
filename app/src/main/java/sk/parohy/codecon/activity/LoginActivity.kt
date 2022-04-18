@@ -28,6 +28,7 @@ import sk.parohy.codecon.api.NetworkResult
 import sk.parohy.codecon.api.isLoading
 import sk.parohy.codecon.api.isSuccessful
 import sk.parohy.codecon.theme.CodeConTheme
+import sk.parohy.codecon.theme.white
 import sk.parohy.codecon.viewmodel.LoginViewModel
 
 fun ViewBinding.startLoginActivity() {
@@ -73,7 +74,8 @@ private fun LoginScreen(state: NetworkResult<String>?, onSubmit: (String, String
         Text(
             text = stringResource(R.string.login_loading),
             fontSize = 21.sp,
-            modifier = Modifier.alpha(if (state.isLoading) 1f else 0f)
+            modifier = Modifier.alpha(if (state.isLoading) 1f else 0f),
+            style = MaterialTheme.typography.subtitle1,
         )
 
         LoginForm(
@@ -133,7 +135,8 @@ private fun LoginForm(error: String?, onSubmit: (String, String) -> Unit) {
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text = stringResource(R.string.login_submit)
+                text = stringResource(R.string.login_submit),
+                color = white
             )
         }
     }
