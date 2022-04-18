@@ -27,6 +27,7 @@ import sk.parohy.codecon.R
 import sk.parohy.codecon.api.NetworkResult
 import sk.parohy.codecon.api.isLoading
 import sk.parohy.codecon.api.isSuccessful
+import sk.parohy.codecon.theme.CodeConTheme
 import sk.parohy.codecon.viewmodel.LoginViewModel
 
 fun ViewBinding.startLoginActivity() {
@@ -47,9 +48,11 @@ class LoginActivity: AppCompatActivity() {
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
             }
 
-            LoginScreen(state = state, onSubmit = { u, p ->
-                model.login(u, p, PreferenceManager.getDefaultSharedPreferences(this))
-            })
+            CodeConTheme {
+                LoginScreen(state = state, onSubmit = { u, p ->
+                    model.login(u, p, PreferenceManager.getDefaultSharedPreferences(this))
+                })
+            }
         }
     }
 }
@@ -138,15 +141,38 @@ private fun LoginForm(error: String?, onSubmit: (String, String) -> Unit) {
 
 @Preview
 @Composable
-private fun PreviewLoginForm() {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        LoginForm(null, { a, b -> })
-        LoginForm("Time out", { a, b -> })
+private fun LoginFormPreviewLight() {
+    CodeConTheme(false) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            LoginForm(null, { a, b -> })
+            LoginForm("Time out", { a, b -> })
+        }
     }
 }
 
 @Preview
 @Composable
-private fun LoginScreenPreview() {
-    LoginScreen(state = null, onSubmit = { u, p -> })
+private fun LoginScreenPreviewLight() {
+    CodeConTheme(false) {
+        LoginScreen(state = null, onSubmit = { u, p -> })
+    }
+}
+
+@Preview
+@Composable
+private fun LoginFormPreviewDark() {
+    CodeConTheme(true) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            LoginForm(null, { a, b -> })
+            LoginForm("Time out", { a, b -> })
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun LoginScreenPreviewDark() {
+    CodeConTheme(true) {
+        LoginScreen(state = null, onSubmit = { u, p -> })
+    }
 }
