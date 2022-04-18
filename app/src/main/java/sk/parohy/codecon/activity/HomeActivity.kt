@@ -1,43 +1,153 @@
 package sk.parohy.codecon.activity
 
-import android.util.Log
+import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.flow.collect
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import sk.parohy.codecon.R
 import sk.parohy.codecon.api.NetworkResult
 import sk.parohy.codecon.api.isLoading
-import sk.parohy.codecon.databinding.ActivityHomeBinding
+import sk.parohy.codecon.api.model.God
 import sk.parohy.codecon.viewmodel.HomeViewModel
 
-class HomeActivity: VBActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
-    private val adapter = GodAdapter()
+class HomeActivity: AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    override fun ActivityHomeBinding.onBind() {
         val model by viewModels<HomeViewModel>()
 
-        swipeRefresh.setOnRefreshListener { model.refresh() }
-
-        rvGods.layoutManager = LinearLayoutManager(this@HomeActivity)
-        rvGods.adapter = adapter
-        rvGods.addItemDecoration(SpacerItemDecoration(toPx(8), toPx(16)))
-
-        bSignout.setOnClickListener {
-            model.logOut(PreferenceManager.getDefaultSharedPreferences(this@HomeActivity))
-            startLoginActivity()
-        }
-
-        lifecycleScope.launchWhenResumed {
-            model.state.collect { state ->
-                when (state) {
-                    is NetworkResult.Failure -> Log.d("Home", state.ex.toString())
-                    is NetworkResult.Success -> adapter.data = state.value
-                    null -> model.refresh()
+        setContent {
+            HomeScreen(
+                model = model,
+                onLogout = {
+                    model.logOut(PreferenceManager.getDefaultSharedPreferences(this))
+                    startLoginActivity()
                 }
+            )
+        }
+    }
+}
 
-                swipeRefresh.isRefreshing = state.isLoading
+@Composable
+private fun HomeScreen(model: HomeViewModel, onLogout: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Header(onLogout = onLogout)
+
+        val state by model.state.collectAsState(initial = null)
+        
+        LaunchedEffect(state) {
+            if (state == null) model.refresh()
+        }
+        
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = state.isLoading),
+            onRefresh = model::refresh
+        ) {
+            LazyColumn {
+                (state as? NetworkResult.Success)?.let { s ->
+                    items(s.value) { god ->
+                        GodCard(god = god)
+                    }
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun Header(onLogout: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.home_headline),
+            style = MaterialTheme.typography.h5
+        )
+
+        TextButton(
+            onClick = onLogout
+        ) {
+            Text(
+                text = stringResource(id = R.string.logout),
+            )
+        }
+    }
+}
+
+@Composable
+private fun GodCard(god: God) {
+    Surface(
+        shape = RoundedCornerShape(12.dp),
+        color = MaterialTheme.colors.surface,
+        elevation = 2.dp,
+        modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(4.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(text = "${stringResource(id = R.string.item_god_name)} ${god.name}")
+            Text(text = "${stringResource(id = R.string.item_god_title)} ${god.title}")
+            Text(
+                text = "${stringResource(id = R.string.item_god_desc)} ${god.desc}",
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun GodCardPreview() {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        GodCard(
+            god = God(
+                "Tutut",
+                "Funny joker",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            )
+        )
+        GodCard(
+            god = God(
+                "Tutut",
+                "Funny joker",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            )
+        )
+        GodCard(
+            god = God(
+                "Tutut",
+                "Funny joker",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            )
+        )
     }
 }

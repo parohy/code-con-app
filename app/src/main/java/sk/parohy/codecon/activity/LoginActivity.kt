@@ -1,5 +1,6 @@
 package sk.parohy.codecon.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -22,17 +23,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.preference.PreferenceManager
-import androidx.viewbinding.ViewBinding
 import sk.parohy.codecon.R
 import sk.parohy.codecon.api.NetworkResult
 import sk.parohy.codecon.api.isLoading
 import sk.parohy.codecon.api.isSuccessful
 import sk.parohy.codecon.viewmodel.LoginViewModel
 
-fun ViewBinding.startLoginActivity() {
-    val intent = Intent(root.context, LoginActivity::class.java)
+fun Context.startLoginActivity() {
+    val intent = Intent(this, LoginActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-    root.context.startActivity(intent)
+    startActivity(intent)
 }
 
 class LoginActivity: AppCompatActivity() {
