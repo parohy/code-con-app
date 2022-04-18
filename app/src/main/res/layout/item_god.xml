@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="2dp"
+    android:padding="4dp"
     app:cardCornerRadius="12dp"
-    android:padding="4dp">
+    app:cardElevation="2dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:padding="8dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
+                style="@style/Body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/item_god_name"/>
+                android:text="@string/item_god_name" />
 
             <TextView
                 android:id="@+id/t_name"
-                android:layout_marginStart="8dp"
+                style="@style/Body"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -34,16 +37,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
+
             <TextView
-                android:text="@string/item_god_title"
+                style="@style/Body"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/item_god_title" />
 
             <TextView
                 android:id="@+id/t_title"
+                style="@style/Body"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -51,18 +57,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
+
             <TextView
-                android:text="@string/item_god_desc"
+                style="@style/Body"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/item_god_desc" />
 
             <TextView
                 android:id="@+id/t_desc"
+                style="@style/Body"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_height="wrap_content"
-                android:maxLines="3"
-                android:ellipsize="end"/>
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="3" />
         </LinearLayout>
 
     </LinearLayout>

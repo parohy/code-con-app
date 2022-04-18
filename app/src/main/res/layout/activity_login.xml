@@ -8,11 +8,10 @@
 
     <TextView
         android:id="@+id/t_headline"
-        style="@style/TextAppearance.AppCompat.Headline"
+        style="@style/H1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_headline"
-        android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@id/login_form"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -23,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_loading"
-        android:textSize="21sp"
+        style="@style/Sub"
         app:layout_constraintTop_toBottomOf="@id/t_headline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
