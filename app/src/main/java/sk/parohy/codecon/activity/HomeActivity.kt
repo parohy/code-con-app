@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,6 +31,8 @@ import sk.parohy.codecon.api.NetworkResult
 import sk.parohy.codecon.api.isLoading
 import sk.parohy.codecon.api.model.God
 import sk.parohy.codecon.theme.CodeConTheme
+import sk.parohy.codecon.theme.codecon_light
+import sk.parohy.codecon.theme.codecon_night
 import sk.parohy.codecon.viewmodel.HomeViewModel
 
 class HomeActivity: AppCompatActivity() {
@@ -91,7 +94,7 @@ private fun Header(onLogout: () -> Unit) {
     ) {
         Text(
             text = stringResource(id = R.string.home_headline),
-            style = MaterialTheme.typography.h5
+            style = MaterialTheme.typography.h2
         )
 
         TextButton(
@@ -99,6 +102,7 @@ private fun Header(onLogout: () -> Unit) {
         ) {
             Text(
                 text = stringResource(id = R.string.logout),
+                color = if (isSystemInDarkTheme()) codecon_night else codecon_light
             )
         }
     }
@@ -116,15 +120,29 @@ private fun GodCard(god: God) {
             modifier = Modifier.padding(4.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(text = "${stringResource(id = R.string.item_god_name)} ${god.name}")
-            Text(text = "${stringResource(id = R.string.item_god_title)} ${god.title}")
-            Text(
+            CodBody(text = "${stringResource(id = R.string.item_god_name)} ${god.name}")
+            CodBody(text = "${stringResource(id = R.string.item_god_title)} ${god.title}")
+            CodBody(
                 text = "${stringResource(id = R.string.item_god_desc)} ${god.desc}",
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
         }
     }
+}
+
+@Composable
+private fun CodBody(
+    text: String,
+    maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Ellipsis
+) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.body1,
+        maxLines = maxLines,
+        overflow = overflow
+    )
 }
 
 @Preview
