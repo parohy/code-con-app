@@ -175,6 +175,11 @@ private fun GodCardLightPreview() {
     }
 }
 
+@Composable
+fun MyText(text: String) {
+    Text(text = text)
+}
+
 @Preview
 @Composable
 private fun GodCardDarkPreview() {
