@@ -120,29 +120,16 @@ private fun GodCard(god: God) {
             modifier = Modifier.padding(4.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            CodBody(text = "${stringResource(id = R.string.item_god_name)} ${god.name}")
-            CodBody(text = "${stringResource(id = R.string.item_god_title)} ${god.title}")
-            CodBody(
+            Text(text = "${stringResource(id = R.string.item_god_name)} ${god.name}")
+            Text(text = "${stringResource(id = R.string.item_god_title)} ${god.title}")
+            Text(
                 text = "${stringResource(id = R.string.item_god_desc)} ${god.desc}",
+                style = MaterialTheme.typography.body1,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
         }
     }
-}
-
-@Composable
-private fun CodBody(
-    text: String,
-    maxLines: Int = Int.MAX_VALUE,
-    overflow: TextOverflow = TextOverflow.Ellipsis
-) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.body1,
-        maxLines = maxLines,
-        overflow = overflow
-    )
 }
 
 @Preview
